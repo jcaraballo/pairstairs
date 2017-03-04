@@ -99,11 +99,3 @@ session model ids =
       [] -> ""
       head :: [] -> player model head
       head :: tail -> (player model head) ++ " x " ++ (session model tail)
-
-zipWithIndex : Int -> List a -> List (a, Int)
-zipWithIndex startIndex list =
-  case list of
-    x :: xs ->
-        (x, startIndex) :: (zipWithIndex (startIndex+1) xs)
-    [] ->
-        []
