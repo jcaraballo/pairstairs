@@ -43,13 +43,17 @@ update : Msg -> Model -> Model
 update msg model =
   case msg of
     ChangeName id name ->
-        { model | players = (List.take id model.players) ++ [name] ++ List.drop (id + 1) model.players }
+        { model | players = updateListAt id name model.players }
     AddPlayer ->
         { model | players = model.players ++ [""] }
     AddSession id1 id2 ->
         { model | sessions = (List.sort [id1, id2]) :: model.sessions }
 
-
+updateListAt : Int -> a -> List a -> List a
+updateListAt index newValue oldList =
+    (List.take index oldList) ++ [newValue] ++ List.drop (index + 1) oldList
+-- alternatively:
+--    List.indexedMap (\i a -> if i == index then newValue else a) oldList
 
 -- VIEW
 
